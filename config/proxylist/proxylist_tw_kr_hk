@@ -1,0 +1,49 @@
+# 5
+
+123.241.22.129	3128	HTTPS	透明	[台湾 代理] 台湾	T'ai-wan	Taichung	81.1%	
+	
+210.65.151.65	8080	HTTPS	透明	[台湾 代理] 台湾	T'ai-pei	Taipei	97.8%	
+	
+60.251.190.150	3128	HTTP	普通匿名	[台湾 代理] 台湾	T'ai-pei	Taipei	35.7%	
+	
+163.29.38.166	8080	HTTPS	普通匿名	[台湾 代理] 台湾	T'ai-pei	Taipei	14.5%	
+	
+220.132.19.136	8080	HTTPS	普通匿名	[台湾 代理] 台湾	T'ai-pei	Taipei	95.1%
+
+211.110.9.171	80	HTTP	普通匿名	[韩国 代理] 韩国	Seoul-t'ukpyolsi	Seoul	54.8%	
+	
+220.72.15.53	8080	HTTPS	透明	[韩国 代理] 韩国	Seoul-t'ukpyolsi	Seoul	32.9%	
+	
+180.224.184.79	3128	HTTPS	透明	[韩国 代理] 韩国	Seoul-t'ukpyolsi	Seoul	98.0%	
+	
+175.196.65.153	3128	HTTPS	透明	[韩国 代理] 韩国	Seoul-t'ukpyolsi	Seoul	96.4%	
+	
+211.110.9.164	80	HTTP	普通匿名	[韩国 代理] 韩国	Seoul-t'ukpyolsi	Seoul	50.9%	
+	
+124.248.211.170	3128	HTTP	透明	[香港 代理] 香港		North Point	93.4%	
+	
+59.148.117.213	1998	HTTPS	超级匿名	[香港 代理] 香港		Central District	11.5%	
+	
+110.4.24.170	81	HTTP	普通匿名	[香港 代理] 香港			17.6%	
+	
+221.125.52.178	8080	HTTPS	超级匿名	[香港 代理] 香港		Central District	11.5%	
+	
+218.188.3.167	80	HTTP	普通匿名	[香港 代理] 香港		Central District	74.5%	
+	
+113.28.244.195	3128	HTTPS	透明	[香港 代理] 香港			73.2%	
+	
+210.245.164.241	80	HTTP	透明	[香港 代理] 香港		Central District	95.5%	
+	
+61.93.84.57	80	HTTP	超级匿名	[香港 代理] 香港		Central District	70.9%	
+	
+210.209.118.191	80	HTTP	透明	[香港 代理] 香港		Central District	98.9%	
+	
+218.213.104.17	8080	HTTPS	透明	[香港 代理] 香港		Kwai Chung	96.2%	
+	
+116.212.112.247	8888	HTTP	透明	[香港 代理] 香港		Central District	70.7%	
+	
+202.77.176.124	80	HTTP	透明	[香港 代理] 香港		Causeway Bay	63.4%	
+	
+112.213.97.69	80	HTTP	普通匿名	[香港 代理] 香港			20.5%	
+	
+210.0.205.70	80	HTTPS	透明	[香港 代理] 香港		Central District	80.9%

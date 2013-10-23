@@ -13,10 +13,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnRoutePNames;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 
 public class GreatCustomer {
@@ -32,7 +31,7 @@ public class GreatCustomer {
 
 		// 读取代理列表
 		System.out.println("开始读取代理文件");
-		BufferedReader reader = new BufferedReader(new FileReader(proxyListFile));
+		BufferedReader reader = new BufferedReader(new FileReader(GreatCustomer.class.getResource("/").getFile() + proxyListFile));
 		String nextLine = null;
 		List<ProxyConfig> proxyList = new ArrayList<ProxyConfig>();
 		while ((nextLine = reader.readLine()) != null) {
@@ -40,6 +39,8 @@ public class GreatCustomer {
 				if (!"".equals(nextLine.trim())) {
 
 					ProxyConfig proxyConfig = new ProxyConfig();
+//					proxyConfig.setHost(nextLine.split("\\s")[0]);
+//					proxyConfig.setPort(Integer.parseInt(nextLine.split("\\s")[1]));
 					proxyConfig.setHost(nextLine.split("\\s")[0].split(":")[0]);
 					proxyConfig.setPort(Integer.parseInt(nextLine.split("\\s")[0].split(":")[1]));
 					proxyList.add(proxyConfig);
@@ -55,23 +56,22 @@ public class GreatCustomer {
 		// 连接流程
 		System.out.println("开始组装链接");
 		HttpClient client = new DefaultHttpClient();
-
+		client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 3000);
+		client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 3000);
+		
 		// 设置投票地址
-		HttpPost method = new HttpPost("http://future.byr.cn/default/submit/3");
+		String host = "http://www.hotpepper.jp/strJ001038791/";
+		HttpGet method = new HttpGet(host);
+		System.out.println("目标[" + host + "]");
 
-		// 设置投票参数
-		method.setEntity(new StringEntity("data%5Bdata%5D=155", "UTF-8"));
 		// 伪装头信息
 		method.setHeader("Accept", "*/*");
 		method.setHeader("Accept-Encoding", "gzip, deflate");
-		method.setHeader("Accept-Language", "zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3");
 		method.setHeader("Cache-Control", "no-cache");
 		method.setHeader("Connection", "keep-alive");
 		// method.setHeader("Content-Length", "18");
 		method.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-		method.setHeader("Host", "design.byr.cn");
 		method.setHeader("Pragma", "no-cache");
-		method.setHeader("Referer", "http://design.byr.cn/default/index/3");
 		method.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:19.0) Gecko/20100101 Firefox/19.0");
 		method.setHeader("X-Requested-With", "XMLHttpRequest");
 
@@ -103,16 +103,18 @@ public class GreatCustomer {
 				try {
 					HttpResponse response = client.execute(method);
 					// 打印输出
+					// System.out.println(response.getStatusLine().getStatusCode());
 					// 获取结果
-					String result = EntityUtils.toString(response.getEntity(), "UTF-8");
-					if ("true".equals(result)) {
+					if (response.getStatusLine().getStatusCode() == 200) {
 						System.out.print("\t投票成功");
 						count++;
 					} else {
-						System.err.println(result);
-						System.out.print("\t投票失败");
+						System.out.print("\t投票失败:" + response.getStatusLine().getStatusCode());
+						if (response.getStatusLine().getStatusCode() == 500) {
+							System.out.println(response.getEntity().getContentType().getValue());
+							System.out.println(EntityUtils.toString(response.getEntity(), "UTF-8"));
+						}
 					}
-					// 释放链接
 					method.releaseConnection();
 				} catch (Exception e) {
 					System.out.print("\t代理异常");
