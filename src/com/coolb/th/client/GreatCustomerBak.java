@@ -16,29 +16,30 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
-import org.apache.http.util.EntityUtils;
 
-public class GreatCustomer {
+import com.coolb.th.proxy.Proxy;
+
+public class GreatCustomerBak {
 
 	public static void main(String[] args) throws ClientProtocolException, IOException, InterruptedException {
 		// 读取配置文件
 		Properties config = new Properties();
-		config.load(new FileInputStream(GreatCustomer.class.getResource("/").getFile() + "config.properties"));
+		config.load(new FileInputStream(GreatCustomerBak.class.getResource("/").getFile() + "config.properties"));
 		// 读取代理列表文件地址
-		String proxyListFile = config.getProperty("proxylist");
+		String proxyListFile = config.getProperty("proxylist.list");
 		// 读取最高延迟时间
-		int maxdelay = Integer.parseInt(config.getProperty("maxdelay", "60"));
+		int maxdelay = Integer.parseInt(config.getProperty("client.maxdelay", "5"));
 
 		// 读取代理列表
 		System.out.println("开始读取代理文件");
-		BufferedReader reader = new BufferedReader(new FileReader(GreatCustomer.class.getResource("/").getFile() + proxyListFile));
+		BufferedReader reader = new BufferedReader(new FileReader(GreatCustomerBak.class.getResource("/").getFile() + proxyListFile));
 		String nextLine = null;
-		List<ProxyConfig> proxyList = new ArrayList<ProxyConfig>();
+		List<Proxy> proxyList = new ArrayList<Proxy>();
 		while ((nextLine = reader.readLine()) != null) {
 			try {
 				if (!"".equals(nextLine.trim())) {
 
-					ProxyConfig proxyConfig = new ProxyConfig();
+					Proxy proxyConfig = new Proxy();
 //					proxyConfig.setHost(nextLine.split("\\s")[0]);
 //					proxyConfig.setPort(Integer.parseInt(nextLine.split("\\s")[1]));
 					proxyConfig.setHost(nextLine.split("\\s")[0].split(":")[0]);
@@ -60,7 +61,7 @@ public class GreatCustomer {
 		client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 3000);
 		
 		// 设置投票地址
-		String host = "http://www.hotpepper.jp/strJ001038791/";
+		String host = "http://r.gnavi.co.jp/enz725uz0000/menu4/";
 		HttpGet method = new HttpGet(host);
 		System.out.println("目标[" + host + "]");
 
@@ -80,7 +81,7 @@ public class GreatCustomer {
 		int count = 0;
 		for (int i = 0; i < proxyList.size(); i++) {
 			// 设置代理
-			ProxyConfig proxyConfig = proxyList.get(i);
+			Proxy proxyConfig = proxyList.get(i);
 			System.out.print((i + 1) + ".当前代理[" + proxyConfig + "]");
 			HttpHost proxy = new HttpHost(proxyConfig.getHost(), proxyConfig.getPort());
 			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
@@ -110,10 +111,10 @@ public class GreatCustomer {
 						count++;
 					} else {
 						System.out.print("\t投票失败:" + response.getStatusLine().getStatusCode());
-						if (response.getStatusLine().getStatusCode() == 500) {
-							System.out.println(response.getEntity().getContentType().getValue());
-							System.out.println(EntityUtils.toString(response.getEntity(), "UTF-8"));
-						}
+//						if (response.getStatusLine().getStatusCode() == 500) {
+//							System.out.println(response.getEntity().getContentType().getValue());
+//							System.out.println(EntityUtils.toString(response.getEntity(), "UTF-8"));
+//						}
 					}
 					method.releaseConnection();
 				} catch (Exception e) {
@@ -131,32 +132,4 @@ public class GreatCustomer {
 		System.out.println("遍历请求完成，成功次数[" + count + "]，实际增加可能小于此值");
 
 	}
-}
-
-class ProxyConfig {
-
-	private String host;
-	private int port;
-
-	public String getHost() {
-		return host;
-	}
-
-	public void setHost(String host) {
-		this.host = host;
-	}
-
-	public int getPort() {
-		return port;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
-	}
-
-	@Override
-	public String toString() {
-		return host + ":" + port;
-	}
-
 }
