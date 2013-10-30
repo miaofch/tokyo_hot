@@ -40,10 +40,10 @@ public class GreatCustomerBak {
 				if (!"".equals(nextLine.trim())) {
 
 					Proxy proxyConfig = new Proxy();
-//					proxyConfig.setHost(nextLine.split("\\s")[0]);
-//					proxyConfig.setPort(Integer.parseInt(nextLine.split("\\s")[1]));
-					proxyConfig.setHost(nextLine.split("\\s")[0].split(":")[0]);
-					proxyConfig.setPort(Integer.parseInt(nextLine.split("\\s")[0].split(":")[1]));
+					proxyConfig.setHost(nextLine.split("\\s")[0]);
+					proxyConfig.setPort(Integer.parseInt(nextLine.split("\\s")[1]));
+//					proxyConfig.setHost(nextLine.split("\\s")[0].split(":")[0]);
+//					proxyConfig.setPort(Integer.parseInt(nextLine.split("\\s")[0].split(":")[1]));
 					proxyList.add(proxyConfig);
 				}
 			} catch (Exception e) {
@@ -57,8 +57,8 @@ public class GreatCustomerBak {
 		// 连接流程
 		System.out.println("开始组装链接");
 		HttpClient client = new DefaultHttpClient();
-		client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 3000);
-		client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 3000);
+		client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 5000);
+		client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 5000);
 		
 		// 设置投票地址
 		String host = "http://r.gnavi.co.jp/enz725uz0000/menu4/";
