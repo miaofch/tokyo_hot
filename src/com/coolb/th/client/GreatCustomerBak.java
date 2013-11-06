@@ -31,7 +31,7 @@ public class GreatCustomerBak {
 		int maxdelay = Integer.parseInt(config.getProperty("client.maxdelay", "5"));
 
 		// 读取代理列表
-		System.out.println("开始读取代理文件");
+		System.out.println("开始读取代理文件[" + proxyListFile + "]");
 		BufferedReader reader = new BufferedReader(new FileReader(GreatCustomerBak.class.getResource("/").getFile() + proxyListFile));
 		String nextLine = null;
 		List<Proxy> proxyList = new ArrayList<Proxy>();
@@ -61,7 +61,8 @@ public class GreatCustomerBak {
 		client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 5000);
 		
 		// 设置投票地址
-		String host = "http://r.gnavi.co.jp/enz725uz0000/menu4/";
+		String host = "http://www.hotpepper.jp/strJ001038791/";
+//		String host = "http://r.gnavi.co.jp/enz725uz0000/menu4/";
 		HttpGet method = new HttpGet(host);
 		System.out.println("目标[" + host + "]");
 
